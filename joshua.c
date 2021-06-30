@@ -91,6 +91,7 @@ void be_joshua()
     else if(strcmp(buf, "list games")==0 && gamesPhase)
       {
         print_string("\nFALKEN'S MAZE\nBLACK JACK\nGIN RUMMY\nHEARTS\nBRIDGE\nCHECKERS\nCHESS\nPOKER\nFIGHTER COMBAT\nGUERRILLA ENGAGEMENT\nDESERT WARFARE\nAIR-TO-GROUND ACTIONS\nTHEATERWIDE TACTICAL WARFARE\nTHEATERWIDE BIOTOXIC AND CHEMICAL WARFARE\n\nGLOBAL THERMONUCLEAR WAR\n\n\n");
+        gamesPhase=false;
       }
     else if(ret==ERR || strcmp(buf, "joshua") && !gamesPhase)
       {
