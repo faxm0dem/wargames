@@ -22,10 +22,14 @@
 
 #include <curses.h>
 #include <iostream>
+#include <unistd.h>
 
 using namespace std;
 int main()
 { 
-  be_joshua();
-  endwin();
+	while(true) {
+		be_joshua();
+		sleep(5);
+		endwin();
+	}
 }
