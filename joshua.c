@@ -22,6 +22,7 @@
 #include "joshua.h"
 #include "strings.h" /* predefined strings */
 #include "util.h"
+#include <signal.h>
 
 #include <curses.h>
 #include <signal.h>
@@ -31,8 +32,16 @@
 
 void cleanup(int signum)
 {
+	print_string("BREAK CODE RECEIVED...\n");
   endwin();
-  exit(0);
+//  exit(0);
+}
+void cleanup_falken(int signum)
+{
+	print_string("PROFESSOR... WE HAVE UNFINISHED BUSINESS...\n");
+	sleep(5);
+  endwin();
+//  exit(0);
 }
 void random_stuff(void) /* print random junk on the screen for about 3 seconds */
 {
@@ -89,6 +98,7 @@ void be_joshua()
         return;
       }
   } while(strcmp(buf, "joshua") || gamesPhase);
+  signal(SIGINT, &cleanup_falken);
   random_stuff();
   usleep(SLEEP_TIME*100);
   print_string("GREETINGS, PROFESSOR FALKEN.\n\n");
