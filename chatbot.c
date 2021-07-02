@@ -22,10 +22,18 @@
 #include "strings.h"
 #include "util.h"
 #include <curses.h>
+#include <signal.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
+static volatile int stayRunning = 1;
+
+void cleanup_falken(int signum)
+{
+	print_string("PROFESSOR... WE HAVE UNFINISHED BUSINESS...\n");
+	stayRunning = 0;
+}
 void do_chatbot(void)
 {
   int stage=0; /* stage 0: i'm fine how are you... -> 
@@ -33,7 +41,8 @@ void do_chatbot(void)
                   stage 2: love to. how about global thermonuclear war? -> 
                   stage 3: no lets play global thermonuclear war -> 
                   stage 4: GLOBAL THERMONUCLEAR WAR!!! */
-  while(1)
+  signal(SIGINT, &cleanup_falken);
+  while(stayRunning)
     {
       char buf[513];
       int ret=getnstr(buf, 512);
@@ -126,5 +135,6 @@ void do_chatbot(void)
             }
         } // else
     } // while
+  stayRunning=1;
 }
 

@@ -30,19 +30,16 @@
 #include <string.h>
 #include <unistd.h>
 
+static volatile int stopRunning = 0;
+
 void cleanup(int signum)
 {
 	print_string("BREAK CODE RECEIVED...\n");
-  endwin();
+	stopRunning = 1;
+//  endwin();
 //  exit(0);
 }
-void cleanup_falken(int signum)
-{
-	print_string("PROFESSOR... WE HAVE UNFINISHED BUSINESS...\n");
-	sleep(5);
-  endwin();
-//  exit(0);
-}
+
 void random_stuff(void) /* print random junk on the screen for about 3 seconds */
 {
   clear();
@@ -54,6 +51,7 @@ void random_stuff(void) /* print random junk on the screen for about 3 seconds *
   usleep(100000);
   clear();
 }
+
 void be_joshua()
 {
   initscr();
@@ -93,13 +91,13 @@ void be_joshua()
         print_string("\nFALKEN'S MAZE\nBLACK JACK\nGIN RUMMY\nHEARTS\nBRIDGE\nCHECKERS\nCHESS\nPOKER\nFIGHTER COMBAT\nGUERRILLA ENGAGEMENT\nDESERT WARFARE\nAIR-TO-GROUND ACTIONS\nTHEATERWIDE TACTICAL WARFARE\nTHEATERWIDE BIOTOXIC AND CHEMICAL WARFARE\n\nGLOBAL THERMONUCLEAR WAR\n\n\n");
         gamesPhase=false;
       }
-    else if(ret==ERR || strcmp(buf, "joshua") && !gamesPhase)
+    else if(ret==ERR || stopRunning || strcmp(buf, "joshua") && !gamesPhase)
       {
         print_string("\nIDENTIFICATION NOT RECOGNIZED BY SYSTEM\n--CONNECTION TERMINATED--");
+        stopRunning = 0;
         return;
       }
   } while(strcmp(buf, "joshua") || gamesPhase);
-  signal(SIGINT, &cleanup_falken);
   random_stuff();
   usleep(SLEEP_TIME*100);
   print_string("GREETINGS, PROFESSOR FALKEN.\n\n");
