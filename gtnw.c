@@ -139,8 +139,10 @@ static void print_map_with_pops(void)
       if(us_cities[i].print && ussr_cities[i].print)
 	{
           char buf_2[32];
+          char my_fmt[32];
           snprintf(buf_2, 31, "%u", us_cities[i].population);
-	  snprintf(buf, 512, "%s: %u %*s: %u", us_cities[i].print_name, us_cities[i].population, 64-strlen(us_cities[i].print_name)-strlen(buf_2), ussr_cities[i].print_name, ussr_cities[i].population);
+          snprintf(my_fmt, 31, "%%s: %%u %%%us: %u", 64-strlen(us_cities[i].print_name)-strlen(buf_2));
+	  snprintf(buf, 512, my_fmt, us_cities[i].print_name, us_cities[i].population, ussr_cities[i].print_name, ussr_cities[i].population);
 	}
       else if(us_cities[i].print && !ussr_cities[i].print)
 	snprintf(buf, 512, "%s: %u", us_cities[i].print_name, us_cities[i].population);
