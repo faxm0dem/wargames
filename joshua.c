@@ -18,7 +18,6 @@
  *   Contact the author at contact@fwei.tk
  */
 
-#include "gtnw.h"
 #include "chatbot.h"
 #include "joshua.h"
 #include "strings.h" /* predefined strings */
@@ -72,7 +71,6 @@ void be_joshua()
       print_string(" ");
     }
   do {
-                      global_thermonuclear_war();
     if(!gamesPhase)
       print_string("LOGON: ");
     refresh();
